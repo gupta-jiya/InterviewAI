@@ -1,17 +1,9 @@
-import {
-    clerkMiddleware,
-    createRouteMatcher
-  } from '@clerk/nextjs/server';
-  
-  const isProtectedRoute = createRouteMatcher([
+console.log("MIDDLEWARE: NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY =", process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY);
 
-    '/forum(.*)',
-  ]);
-  
-  export default clerkMiddleware((auth, req) => {
-    if (isProtectedRoute(req)) auth().protect();
-  });
-  
-  export const config = {
-    matcher: ['/((?!.*\\..*|_next).*)', '/', '/(api|trpc)(.*)'],
-  };
+import { clerkMiddleware } from "@clerk/nextjs/server";
+
+export default clerkMiddleware();
+
+export const config = {
+  matcher: ["/:path*"], // This matches all routes
+};
